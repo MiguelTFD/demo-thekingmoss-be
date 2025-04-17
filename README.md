@@ -63,3 +63,58 @@ You must assign the project owner as a reviewer.
 
 ## Project Structure
 
+```bash
+thekingmoss-be/
+├── src/
+│   └── main/
+│       └── java/
+│           └── com/
+│               └── thekingmoss/
+│                   ├── controller/
+│                   ├── service/
+│                   ├── repository/
+│                   ├── entity/
+│                   ├── dto/
+│                   ├── mapper/
+│                   ├── exception/
+│                   ├── security/
+│                   └── ThekingmossBeApplication.java
+├── src/
+│   └── main/
+│       └── resources/
+│           ├── application.properties
+│           └── static/
+├── pom.xml
+└── target/
+
+
+### **Folder Structure Explanation**
+
+1. **`controller/`**
+    Contains the REST controllers that expose API endpoints.
+    Example: `ProductController.java` handles HTTP requests like GET, POST, PUT, DELETE.
+
+2. **`service/`**
+    Contains the business logic of the application.
+    Example: `ProductService.java` performs operations like creating or updating products.
+
+3. **`repository/`**
+    Interfaces that handle data access using Spring Data JPA.
+    Example: `ProductRepository.java` extends `JpaRepository`.
+
+4. **`entity/`**
+    JPA entities mapped to database tables.
+    Example: `Product.java` represents the `products` table.
+
+5. **`dto/`**
+    Data Transfer Objects used to send and receive data between the client and the server.
+
+6. **`mapper/`**
+    Contains mapper classes or interfaces that convert between `entity` and `dto`.
+
+7. **`exception/`**
+    Custom exceptions and global exception handling.
+
+8. **`security/`**
+    Spring Security configuration and filters (authentication, authorization, etc).
+
