@@ -86,7 +86,7 @@ thekingmoss-be/
 │           └── static/
 ├── pom.xml
 └── target/
-
+```
 
 ### **Folder Structure Explanation**
 
