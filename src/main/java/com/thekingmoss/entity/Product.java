@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.ArrayList;
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
