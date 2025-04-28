@@ -1,5 +1,7 @@
 package com.thekingmoss.entity;
 
+import com.thekingmoss.entity.types.AddressType;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,6 +38,10 @@ public class Address {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "address_type", nullable = false)
 	private AddressType addressType;
-}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id")
+	private User user;
+
+}
 

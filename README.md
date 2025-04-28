@@ -82,7 +82,7 @@ thekingmoss-be/
 ├── src/
 │   └── main/
 │       └── resources/
-│           ├── application.properties
+│           ├── application.yml
 │           └── static/
 ├── pom.xml
 └── target/

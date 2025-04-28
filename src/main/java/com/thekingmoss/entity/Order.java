@@ -1,0 +1,45 @@
+package com.thekingmoss.entity;
+
+
+import com.thekingmoss.entity.types.OrderStatusType;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.Date;
+
+@Entity
+@Table(name = "orders")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Order {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "order_date", nullable = false)
+    private Date orderDate;
+
+    @Column(name = "delivery_type", nullable = false)
+    private String deliveryType;
+
+    @Column(name = "order_info", nullable = false)
+    private String orderInfo;
+
+    @Column(name = "delivery_instructions", nullable = false)
+    private String deliveryInstructions;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status", nullable = false)
+    private OrderStatusType orderStatus;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private User user;
+    
+    @OneToMany(mappedBy = "order")
+    private Set<OrderDetail> orderDetails = new HashSet<>();
+}

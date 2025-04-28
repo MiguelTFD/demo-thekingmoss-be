@@ -1,5 +1,6 @@
 package com.thekingmoss.entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.ArrayList;
 import jakarta.persistence.*;
@@ -10,7 +11,7 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstuctor
+@AllArgsConstructor
 @Builder
 public class Product {
 
@@ -36,7 +37,7 @@ public class Product {
 	@Column(name = "size")
 	private String size;
 	
-	@Column(name = "weight" precision = 10, scale = 2)
+	@Column(name = "weight", precision = 10, scale = 2)
 	private BigDecimal weight;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -45,5 +46,7 @@ public class Product {
 
 	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
 	private List<ProductImage> productImages = new ArrayList<>();
-
+	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+  private Set<OrderDetail> orderDetails = new HashSet<>();
 }
