@@ -1,6 +1,6 @@
 package com.thekingmoss.entity;
 
-import com.thekingmoss.entity.types.DocumentType;
+import com.thekingmoss.entity.types.IdentityDocumentType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,17 +15,18 @@ public class IdentityDocument {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Column(name = "identity_document_id")
+	private Long identityDocumentId;
 
-	@Column(name = "document_number", nullable = false)
-	private String documentNumber;
+	@Column(name = "identity_document_number", nullable = false)
+	private String identityDocumentNumber;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "document_type", nullable = false)
-	private DocumentType documentType;
+	@Column(name = "identity_document_type", nullable = false)
+	private IdentityDocumentType identityDocumentType;
 
 	@OneToOne
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id", nullable = false, unique = true)
 	private User user;
 
 }
