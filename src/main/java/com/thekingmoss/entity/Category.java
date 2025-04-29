@@ -1,7 +1,6 @@
 package com.thekingmoss.entity;
 
 import java.util.List;
-import java.util.ArrayList;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,12 +15,13 @@ public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Column(name = "category_id")
+	private Long categoryId;
 
 	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
-	private List<Product> products = new ArrayList<>(); 
+	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+	private List<Product> products;
 
 }

@@ -1,7 +1,6 @@
 package com.thekingmoss.entity;
 
 import java.util.List;
-import java.util.ArrayList;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,12 +15,13 @@ public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Column(name = "role_id")
+	private Long roleId;
 
 	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
-	private List<User> users = new ArrayList<>();
+	@OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+	private List<User> users;
 
 }
