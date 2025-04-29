@@ -35,16 +35,17 @@ public class User {
 
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "role_id", nullable = false)
 	private Role role;
+
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Address> addresses = new ArrayList<>();
 	
 	@OneToOne(mappedBy = "user")
-  private IdentityDocument identityDocument;
+    private IdentityDocument identityDocument;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Order> orders = new ArrayList<>();

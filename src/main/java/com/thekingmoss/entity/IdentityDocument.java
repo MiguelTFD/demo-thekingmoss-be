@@ -25,7 +25,7 @@ public class IdentityDocument {
 	private DocumentType documentType;
 
 	@OneToOne
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "user_id")
 	private User user;
 
 }

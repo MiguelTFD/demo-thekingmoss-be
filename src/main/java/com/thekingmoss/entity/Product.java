@@ -41,9 +41,9 @@ public class Product {
 	
 	@Column(name = "weight", precision = 10, scale = 2)
 	private BigDecimal weight;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
 
 	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
