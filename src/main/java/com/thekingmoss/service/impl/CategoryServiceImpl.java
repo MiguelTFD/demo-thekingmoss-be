@@ -4,7 +4,7 @@ import com.thekingmoss.dto.category.CategoryRequestDto;
 import com.thekingmoss.dto.category.CategoryResponseDto;
 import com.thekingmoss.entity.Category;
 import com.thekingmoss.mapper.category.CategoryMapper;
-import com.thekingmoss.repository.category.ICategoryRepository;
+import com.thekingmoss.repository.ICategoryRepository;
 import com.thekingmoss.service.ICategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

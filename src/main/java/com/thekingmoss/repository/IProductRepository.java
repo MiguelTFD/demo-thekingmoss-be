@@ -1,4 +1,4 @@
-package com.thekingmoss.repository.product;
+package com.thekingmoss.repository;
 
 import com.thekingmoss.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;

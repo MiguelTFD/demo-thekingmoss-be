@@ -7,7 +7,7 @@ import com.thekingmoss.entity.Category;
 import com.thekingmoss.entity.Product;
 import com.thekingmoss.mapper.category.CategoryMapper;
 import com.thekingmoss.mapper.product.ProductMapper;
-import com.thekingmoss.repository.product.IProductRepository;
+import com.thekingmoss.repository.IProductRepository;
 import com.thekingmoss.service.ICategoryService;
 import com.thekingmoss.service.IProductService;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class ProductServiceImpl implements IProductService {
     public ProductResponseDto getById(Long id) {
         return repository.findById(id)
                 .map(productMapper::toDo)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
     }
 
     @Override
