@@ -2,10 +2,8 @@ package com.thekingmoss.entity;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.ArrayList;
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,7 +17,8 @@ public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Column(name = "product_id")
+	private Long productId;
 
 	@Column(name = "name", nullable = false)
 	private String name;
@@ -31,7 +30,7 @@ public class Product {
   private BigDecimal unitPrice;
 
 	@Column(name = "discount", nullable = false, precision = 5, scale = 2)
-  private BigDecimal discount = BigDecimal.ZERO;
+  private BigDecimal discount;
 
 	@Column(name = "description", columnDefinition = "TEXT")
 	private String description;
@@ -47,8 +46,8 @@ public class Product {
 	private Category category;
 
 	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-	private List<ProductImage> productImages = new ArrayList<>();
+	private List<ProductImage> productImages;
 	
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-  private Set<OrderDetail> orderDetails = new HashSet<>();
+  private Set<OrderDetail> orderDetails;
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "order_status")
+@Table(name = "order_details")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,7 +15,7 @@ import lombok.Setter;
 public class OrderDetail {
   
   @EmbeddedId
-  private OrderDetailId id;
+  private OrderDetailId order_detail_id;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @MapsId("orderId")
@@ -34,7 +34,7 @@ public class OrderDetail {
     this.order = order;
     this.product = product;
     this.quantity = quantity;
-    this.id = new OrderDetailId(order.getId(), product.getId());
+    this.order_detail_id = new OrderDetailId(order.getOrderId(), product.getProductId());
   }
 
 }
