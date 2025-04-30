@@ -21,6 +21,6 @@ public class IdentityDocumentResponseDTO {
     private String email;
 
     //Role
-    private String roleId;
+    private Long roleId;
     private String roleName;
 }
