@@ -1,6 +1,6 @@
 package com.thekingmoss.entity.types;
 
-public enum DocumentType {
+public enum IdentityDocumentType {
 	DNI,
 	CARNET_EXTRANGERIA,
 	RUC

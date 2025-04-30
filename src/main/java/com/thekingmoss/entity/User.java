@@ -1,7 +1,6 @@
 package com.thekingmoss.entity;
 
 import java.util.List;
-import java.util.ArrayList;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +15,8 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Column(name = "user_id")
+	private Long userId;
 
 	@Column(name = "username", nullable = false, unique = true)
 	private String username;
@@ -42,11 +42,11 @@ public class User {
 
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private List<Address> addresses = new ArrayList<>();
+	private List<Address> addresses;
 	
 	@OneToOne(mappedBy = "user")
     private IdentityDocument identityDocument;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private List<Order> orders = new ArrayList<>();
+	private List<Order> orders;
 }
