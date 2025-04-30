@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class CategoryMapper {
     public CategoryResponseDto toDo(Category category) {
         return CategoryResponseDto.builder()
-                .id(category.getId())
+                .id(category.getCategoryId())
                 .name(category.getName())
                 .build();
     }
@@ -22,7 +22,7 @@ public class CategoryMapper {
 
     public Category toEntityCategory(CategoryResponseDto responseDto) {
         return Category.builder()
-                .id(responseDto.getId())
+                .categoryId(responseDto.getId())
                 .name(responseDto.getName())
                 .build();
     }
