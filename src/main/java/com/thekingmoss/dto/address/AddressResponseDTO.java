@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 public class AddressResponseDTO {
-    private Long adressId;
+    private Long addressId;
     private String country;
     private String state;
     private String province;
