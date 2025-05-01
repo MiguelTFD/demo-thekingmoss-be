@@ -18,21 +18,21 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements IProductService {
-    private final IProductRepository repository;
+    private final IProductRepository productRepository;
     private final ProductMapper productMapper;
     private final ICategoryService categoryService;
     private final CategoryMapper categoryMapper;
 
     @Override
     public List<ProductResponseDto> getAll() {
-        return repository.findAll().stream()
+        return productRepository.findAll().stream()
                 .map(productMapper::toDo)
                 .toList();
     }
 
     @Override
     public ProductResponseDto getById(Long id) {
-        return repository.findById(id)
+        return productRepository.findById(id)
                 .map(productMapper::toDo)
                 .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
     }
@@ -42,14 +42,14 @@ public class ProductServiceImpl implements IProductService {
         CategoryResponseDto categoryResponseDto = categoryService.getById(requestDto.getCategoryId());
         Category category = categoryMapper.toEntityCategory(categoryResponseDto);
         Product product = productMapper.toEntity(requestDto, category);
-        return productMapper.toDo(repository.save(product));
+        return productMapper.toDo(productRepository.save(product));
     }
 
     @Override
     public void delete(Long id) {
-        if(!repository.existsById(id)) {
+        if(!productRepository.existsById(id)) {
             throw new RuntimeException("Product not found with ID : " + id);
         }
-        repository.deleteById(id);
+        productRepository.deleteById(id);
     }
 }
