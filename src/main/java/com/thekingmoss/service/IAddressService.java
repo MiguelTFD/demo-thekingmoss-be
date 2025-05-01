@@ -11,5 +11,5 @@ public interface IAddressService {
     AddressResponseDTO getAddressById(Long id);
     AddressResponseDTO saveAddress(AddressRequestDTO requestDTO);
     AddressResponseDTO updateAddressById(AddressRequestDTO requestDTO);
-    AddressResponseDTO deleteAddressById(Long id);
+    void deleteAddressById(Long id);
 }
