@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ProductMapper {
     public ProductResponseDto toDo(Product product) {
         return ProductResponseDto.builder()
-                .id(product.getId())
+                .id(product.getProductId())
                 .name(product.getName())
                 .stock(product.getStock())
                 .unitPrice(product.getUnitPrice())
@@ -18,7 +18,7 @@ public class ProductMapper {
                 .description(product.getDescription())
                 .size(product.getSize())
                 .weight(product.getWeight())
-                .categoryId(product.getCategory().getId())
+                .categoryId(product.getCategory().getCategoryId())
                 .categoryName(product.getCategory().getName())
                 .build();
     }
