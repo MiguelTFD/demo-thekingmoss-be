@@ -14,19 +14,19 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements ICategoryService {
-    private final ICategoryRepository repository;
+    private final ICategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
 
     @Override
     public List<CategoryResponseDto> getAll() {
-        return repository.findAll().stream()
+        return categoryRepository.findAll().stream()
                 .map(categoryMapper::toDo)
                 .toList();
     }
 
     @Override
     public CategoryResponseDto getById(Long id) {
-        return repository.findById(id)
+        return categoryRepository.findById(id)
                 .map(categoryMapper::toDo)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
     }
@@ -34,14 +34,14 @@ public class CategoryServiceImpl implements ICategoryService {
     @Override
     public CategoryResponseDto create(CategoryRequestDto requestDto) {
         Category category = categoryMapper.toEntity(requestDto);
-        return categoryMapper.toDo(repository.save(category));
+        return categoryMapper.toDo(categoryRepository.save(category));
     }
 
     @Override
     public void delete(Long id) {
-        if(!repository.existsById(id)) {
+        if(!categoryRepository.existsById(id)) {
             throw new RuntimeException("Category not found with ID :" + id);
         }
-        repository.deleteById(id);
+        categoryRepository.deleteById(id);
     }
 }
