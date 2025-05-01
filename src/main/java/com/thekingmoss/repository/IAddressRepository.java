@@ -1,4 +1,4 @@
-package com.thekingmoss.repository.address;
+package com.thekingmoss.repository;
 
 import com.thekingmoss.entity.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
