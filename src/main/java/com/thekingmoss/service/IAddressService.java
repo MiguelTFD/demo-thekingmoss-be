@@ -9,9 +9,7 @@ public interface IAddressService {
     List<AddressResponseDTO> listAddresses();
     List<AddressResponseDTO> listAddressesByUserId(Long id);
     AddressResponseDTO getAddressById(Long id);
-    AddressResponseDTO getAddressByUserId(Long id);
     AddressResponseDTO saveAddress(AddressRequestDTO requestDTO);
-    AddressResponseDTO updateAddress(AddressRequestDTO requestDTO);
-    AddressResponseDTO deleteAddress(Long id);
-    AddressResponseDTO deleteAddressByUserId(Long id);
+    AddressResponseDTO updateAddressById(AddressRequestDTO requestDTO);
+    AddressResponseDTO deleteAddressById(Long id);
 }
