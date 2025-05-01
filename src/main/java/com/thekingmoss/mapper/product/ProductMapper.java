@@ -35,4 +35,17 @@ public class ProductMapper {
                 .category(category)
                 .build();
     }
+
+    public Product toEntity(ProductResponseDto responseDto) {
+        return Product.builder()
+                .productId(responseDto.getId())
+                .name(responseDto.getName())
+                .stock(responseDto.getStock())
+                .unitPrice(responseDto.getUnitPrice())
+                .discount(responseDto.getDiscount())
+                .description(responseDto.getDescription())
+                .size(responseDto.getSize())
+                .weight(responseDto.getWeight())
+                .build();
+    }
 }
