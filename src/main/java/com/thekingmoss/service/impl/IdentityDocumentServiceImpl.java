@@ -27,21 +27,26 @@ public class IdentityDocumentServiceImpl implements IIdentityDocumentService {
 
     @Override
     public IdentityDocumentResponseDTO getIdentityDocumentById(Long id) {
-        return null;
+        return identityDocumentMapper.toDto(identityDocumentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Identity document not found by ID : " + id)));
     }
 
+    //TODO: Complete when User Class is ready
     @Override
     public IdentityDocumentResponseDTO saveIdentityDocument(IdentityDocumentRequestDTO requestDTO, User user) {
         return null;
     }
 
+    //TODO: Complete when User Class is ready
     @Override
     public IdentityDocumentResponseDTO updateIdentityDocumentById(Long id, IdentityDocumentRequestDTO requestDTO) {
         return null;
     }
-
+    
     @Override
     public void deleteIdentityDocumentById(Long id) {
-
+        if(!identityDocumentRepository.existsById(id)) 
+            throw new RuntimeException("Identity document not found by ID : " + id);
+        identityDocumentRepository.deleteById(id);
     }
 }
