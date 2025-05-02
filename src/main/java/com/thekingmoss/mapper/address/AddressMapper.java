@@ -16,6 +16,7 @@ public class AddressMapper {
                 .province(address.getProvince())
                 .district(address.getDistrict())
                 .addressLine(address.getAddressLine())
+                .addressReference(address.getAddressReference())
                 .addressType(address.getAddressType())
                 .userId(address.getUser().getUserId())
                 .username(address.getUser().getUsername())
