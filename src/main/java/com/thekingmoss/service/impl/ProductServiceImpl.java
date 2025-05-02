@@ -38,6 +38,15 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    public List<ProductResponseDto> listProductsByCategoryName(String categoryName) {
+        return productRepository
+                .findByCategory_Name(categoryName)
+                .stream()
+                .map(productMapper::toDo)
+                .toList();
+    }
+
+    @Override
     public ProductResponseDto create(ProductRequestDto requestDto) {
         CategoryResponseDto categoryResponseDto = categoryService.getById(requestDto.getCategoryId());
         Category category = categoryMapper.toEntityCategory(categoryResponseDto);

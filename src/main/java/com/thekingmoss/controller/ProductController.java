@@ -29,6 +29,11 @@ public class ProductController {
         return service.getById(id);
     }
 
+    @GetMapping("/category/{categoryName}")
+    public List<ProductResponseDto> listProductsByCategoryName(@PathVariable String categoryName) {
+        return service.listProductsByCategoryName(categoryName);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
