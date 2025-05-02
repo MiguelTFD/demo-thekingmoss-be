@@ -20,5 +20,5 @@ public class OrderResponseDto {
 	private Long userId;
 	
 	@Builder.Default
-  private List<OrderDetailResponseDto> details = List.of();
+  	private List<OrderDetailResponseDto> details = List.of();
 }

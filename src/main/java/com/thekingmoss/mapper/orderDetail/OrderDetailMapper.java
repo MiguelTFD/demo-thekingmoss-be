@@ -4,11 +4,8 @@ import com.thekingmoss.entity.OrderDetail;
 import com.thekingmoss.entity.Order;
 import com.thekingmoss.entity.Product;
 import com.thekingmoss.dto.orderDetail.*;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.List;
-import java.math.BigDecimal;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 
@@ -16,7 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OrderDetailMapper {
 
-    public OrderDetail toEntity(OrderDetailRequestDTO dto, Order order, Product product) {
+    public OrderDetail toEntity(OrderDetailRequestDto dto, Order order, Product product) {
         return OrderDetail.builder()
                 .order(order)
                 .product(product)
@@ -24,8 +21,8 @@ public class OrderDetailMapper {
                 .build();
     }
 
-    public OrderDetailResponseDTO toDto(OrderDetail detail) {
-        return OrderDetailResponseDTO.builder()
+    public OrderDetailResponseDto toDto(OrderDetail detail) {
+        return OrderDetailResponseDto.builder()
                 .productId(detail.getProduct().getProductId())
                 .productName(detail.getProduct().getName())
                 .quantity(detail.getQuantity())

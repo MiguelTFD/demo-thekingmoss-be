@@ -1,23 +1,22 @@
 package com.thekingmoss.mapper.order;
 
-import com.thekingmoss.dto.*;
 import com.thekingmoss.dto.order.OrderRequestDto;
 import com.thekingmoss.dto.order.OrderResponseDto;
+import com.thekingmoss.dto.orderDetail.OrderDetailResponseDto;
 import com.thekingmoss.entity.Order;
+import com.thekingmoss.entity.OrderDetail;
 import com.thekingmoss.entity.User;
-import com.thekingmoss.mapper.orderDetail.OrderDetailMapper;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
+import java.util.stream.Collectors;
 
 
 @Component
 @RequiredArgsConstructor
 public class OrderMapper {
 
-    public Order toEntity(OrderRequestDTO dto, User user) {
+    public Order toEntity(OrderRequestDto dto, User user) {
         return Order.builder()
                 .orderDate(dto.getOrderDate())
                 .deliveryType(dto.getDeliveryType())
@@ -28,8 +27,8 @@ public class OrderMapper {
                 .build();
     }
 
-    public OrderResponseDTO toDto(Order order) {
-        return OrderResponseDTO.builder()
+    public OrderResponseDto toDto(Order order) {
+        return OrderResponseDto.builder()
                 .orderId(order.getOrderId())
                 .orderDate(order.getOrderDate())
                 .deliveryType(order.getDeliveryType())
@@ -45,8 +44,8 @@ public class OrderMapper {
                 .build();
     }
 
-    private OrderDetailResponseDTO toDetailDto(OrderDetail detail) {
-        return OrderDetailResponseDTO.builder()
+    private OrderDetailResponseDto toDetailDto(OrderDetail detail) {
+        return OrderDetailResponseDto.builder()
                 .productId(detail.getProduct().getProductId())
                 .productName(detail.getProduct().getName())
                 .quantity(detail.getQuantity())
