@@ -18,27 +18,37 @@ public class CategoryServiceImpl implements ICategoryService {
     private final CategoryMapper categoryMapper;
 
     @Override
-    public List<CategoryResponseDto> getAll() {
+    public List<CategoryResponseDto> getAllCategories() {
         return categoryRepository.findAll().stream()
                 .map(categoryMapper::toDo)
                 .toList();
     }
 
     @Override
-    public CategoryResponseDto getById(Long id) {
+    public CategoryResponseDto getCategoryById(Long id) {
         return categoryRepository.findById(id)
                 .map(categoryMapper::toDo)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
     }
 
     @Override
-    public CategoryResponseDto create(CategoryRequestDto requestDto) {
+    public CategoryResponseDto createCategory(CategoryRequestDto requestDto) {
         Category category = categoryMapper.toEntity(requestDto);
         return categoryMapper.toDo(categoryRepository.save(category));
     }
 
     @Override
-    public void delete(Long id) {
+    public CategoryResponseDto updateCategory(Long id, CategoryRequestDto requestDto) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found with ID: " + id));
+        category.setName(requestDto.getName());
+
+        Category updatedCategory = categoryRepository.save(category);
+        return categoryMapper.toDo(updatedCategory);
+    }
+
+    @Override
+    public void deleteCategory(Long id) {
         if(!categoryRepository.existsById(id)) {
             throw new RuntimeException("Category not found with ID :" + id);
         }
