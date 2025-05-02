@@ -27,10 +27,10 @@ public class Product {
 	private Integer stock;
 
 	@Column(name = "unit_price", nullable = false, precision = 10, scale = 2)
-  private BigDecimal unitPrice;
+    private BigDecimal unitPrice;
 
 	@Column(name = "discount", nullable = false, precision = 5, scale = 2)
-  private BigDecimal discount;
+    private BigDecimal discount;
 
 	@Column(name = "description", columnDefinition = "TEXT")
 	private String description;
@@ -49,5 +49,5 @@ public class Product {
 	private List<ProductImage> productImages;
 	
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-  private Set<OrderDetail> orderDetails;
+    private Set<OrderDetail> orderDetails;
 }
