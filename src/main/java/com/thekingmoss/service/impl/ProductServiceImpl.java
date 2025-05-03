@@ -24,29 +24,62 @@ public class ProductServiceImpl implements IProductService {
     private final CategoryMapper categoryMapper;
 
     @Override
-    public List<ProductResponseDto> getAll() {
+    public List<ProductResponseDto> getAllProducts() {
         return productRepository.findAll().stream()
                 .map(productMapper::toDo)
                 .toList();
     }
 
     @Override
-    public ProductResponseDto getById(Long id) {
+    public ProductResponseDto getProductById(Long id) {
         return productRepository.findById(id)
                 .map(productMapper::toDo)
                 .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
     }
 
     @Override
-    public ProductResponseDto create(ProductRequestDto requestDto) {
-        CategoryResponseDto categoryResponseDto = categoryService.getById(requestDto.getCategoryId());
+    public List<ProductResponseDto> listProductsByCategoryName(String categoryName) {
+        return productRepository
+                .findByCategory_Name(categoryName)
+                .stream()
+                .map(productMapper::toDo)
+                .toList();
+    }
+
+    @Override
+    public ProductResponseDto createProduct(ProductRequestDto requestDto) {
+        CategoryResponseDto categoryResponseDto = categoryService.getCategoryById(requestDto.getCategoryId());
         Category category = categoryMapper.toEntityCategory(categoryResponseDto);
         Product product = productMapper.toEntity(requestDto, category);
         return productMapper.toDo(productRepository.save(product));
     }
 
     @Override
-    public void delete(Long id) {
+    public ProductResponseDto updateProduct(Long id, ProductRequestDto requestDto) {
+        // Search for existing product
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
+
+        // Get the category by ID from the DTO
+        CategoryResponseDto categoryResponseDto = categoryService.getCategoryById(requestDto.getCategoryId());
+        Category category = categoryMapper.toEntityCategory(categoryResponseDto);
+
+        // Update the fields
+        product.setName(requestDto.getName());
+        product.setStock(requestDto.getStock());
+        product.setUnitPrice(requestDto.getUnitPrice());
+        product.setDiscount(requestDto.getDiscount());
+        product.setDescription(requestDto.getDescription());
+        product.setSize(requestDto.getSize());
+        product.setWeight(requestDto.getWeight());
+        product.setCategory(category);
+
+        // Save and return DTO
+        return productMapper.toDo(productRepository.save(product));
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
         if(!productRepository.existsById(id)) {
             throw new RuntimeException("Product not found with ID : " + id);
         }
