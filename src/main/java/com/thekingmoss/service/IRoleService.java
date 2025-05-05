@@ -2,11 +2,10 @@ package com.thekingmoss.service;
 
 import com.thekingmoss.dto.role.RoleRequestDto;
 import com.thekingmoss.dto.role.RoleResponseDto;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface RoleService {
+public interface IRoleService {
 
     RoleResponseDto createRole(RoleRequestDto requestDto);
 

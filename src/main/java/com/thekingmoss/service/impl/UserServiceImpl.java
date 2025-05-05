@@ -7,7 +7,7 @@ import com.thekingmoss.entity.User;
 import com.thekingmoss.mapper.user.UserMapper;
 import com.thekingmoss.repository.IRoleRepository;
 import com.thekingmoss.repository.IUserRepository;
-import com.thekingmoss.service.UserService;
+import com.thekingmoss.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements IUserService {
 
     private final IUserRepository userRepository;
     private final IRoleRepository roleRepository;
@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto createUser(UserRequestDto requestDto) {
         Role role = roleRepository.findById(requestDto.getRoleId())
-                .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Role not found"));
 
         User user = userMapper.toUserEntity(requestDto, role);
         user = userRepository.save(user);
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto getUserById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
         return userMapper.responseDto(user);
     }
 
@@ -49,10 +49,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto updateUser(Long id, UserRequestDto requestDto) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         Role role = roleRepository.findById(requestDto.getRoleId())
-                .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setUsername(requestDto.getUsername());
         user.setPassword(requestDto.getPassword());
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
         if (!userRepository.existsById(id)) {
-            throw new RuntimeException("Usuario no encontrado");
+            throw new RuntimeException("User not found");
         }
         userRepository.deleteById(id);
     }

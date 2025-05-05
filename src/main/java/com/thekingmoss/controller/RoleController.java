@@ -2,7 +2,7 @@ package com.thekingmoss.controller;
 
 import com.thekingmoss.dto.role.RoleRequestDto;
 import com.thekingmoss.dto.role.RoleResponseDto;
-import com.thekingmoss.service.RoleService;
+import com.thekingmoss.service.IRoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RoleController {
 
-    private final RoleService roleService;
+    private final IRoleService roleService;
 
     @PostMapping
     public ResponseEntity<RoleResponseDto> createRole(@RequestBody RoleRequestDto requestDto) {

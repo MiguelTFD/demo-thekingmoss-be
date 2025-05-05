@@ -5,7 +5,7 @@ import com.thekingmoss.dto.role.RoleResponseDto;
 import com.thekingmoss.entity.Role;
 import com.thekingmoss.mapper.role.RoleMapper;
 import com.thekingmoss.repository.IRoleRepository;
-import com.thekingmoss.service.RoleService;
+import com.thekingmoss.service.IRoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl implements IRoleService {
 
 
     private final IRoleRepository roleRepository;
@@ -30,7 +30,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleResponseDto getRoleById(Long id) {
         Role role = roleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Role not found"));
         return roleMapper.responseDto(role);
     }
 
@@ -44,7 +44,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleResponseDto updateRole(Long id, RoleRequestDto requestDto) {
         Role role = roleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Role not found"));
 
         role.setName(requestDto.getName());
 
@@ -54,7 +54,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void deleteRole(Long id) {
         if (!roleRepository.existsById(id)) {
-            throw new RuntimeException("Rol no encontrado");
+            throw new RuntimeException("Role not found");
         }
         roleRepository.deleteById(id);
     }

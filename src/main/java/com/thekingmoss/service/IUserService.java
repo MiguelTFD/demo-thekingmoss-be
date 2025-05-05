@@ -5,7 +5,7 @@ import com.thekingmoss.dto.user.UserResponseDto;
 
 import java.util.List;
 
-public interface UserService {
+public interface IUserService {
 
     UserResponseDto createUser(UserRequestDto requestDto);
 

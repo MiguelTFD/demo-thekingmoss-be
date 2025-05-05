@@ -2,7 +2,7 @@ package com.thekingmoss.controller;
 
 import com.thekingmoss.dto.user.UserRequestDto;
 import com.thekingmoss.dto.user.UserResponseDto;
-import com.thekingmoss.service.UserService;
+import com.thekingmoss.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final IUserService userService;
 
     @PostMapping
     public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto requestDto) {
