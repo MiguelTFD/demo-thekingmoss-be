@@ -36,7 +36,6 @@ public class IdentityDocumentServiceImpl implements IIdentityDocumentService {
                 .orElseThrow(() -> new RuntimeException("Identity document not found by ID : " + id)));
     }
 
-    //TODO: Complete when User Class is ready
     @Override
     public IdentityDocumentResponseDTO saveIdentityDocument(IdentityDocumentRequestDTO requestDTO) {
         User user = userRepository.findById(requestDTO.getUserId())
@@ -51,8 +50,12 @@ public class IdentityDocumentServiceImpl implements IIdentityDocumentService {
     public IdentityDocumentResponseDTO updateIdentityDocumentById(Long id, IdentityDocumentRequestDTO requestDTO) {
         IdentityDocument identityDocument = identityDocumentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Identity document not found by ID : " + id));
+        User user = userRepository.findById(requestDTO.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found by ID : " + id));
+
         identityDocument.setIdentityDocumentNumber(requestDTO.getIdentityDocumentNumber());
         identityDocument.setIdentityDocumentType(requestDTO.getIdentityDocumentType());
+        identityDocument.setUser(user);
         IdentityDocument updatedIdentityDocument = identityDocumentRepository.save(identityDocument);
 
         return identityDocumentMapper.toDto(updatedIdentityDocument);
