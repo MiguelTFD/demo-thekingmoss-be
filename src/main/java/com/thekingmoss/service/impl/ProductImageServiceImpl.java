@@ -34,7 +34,7 @@ public class ProductImageServiceImpl implements ProductImageService {
 
     @Override
     public ProductImageResponseDto create(ProductImageRequestDto requestDto) {
-        ProductResponseDto productResponseDto = productService.getById(requestDto.getProductId());
+        ProductResponseDto productResponseDto = productService.getProductById(requestDto.getProductId());
         Product product = productMapper.toEntity(productResponseDto);
         ProductImage productImage = productImageMapper.toEntity(requestDto,product);
         return productImageMapper.toDto(productImageRepository.save(productImage));

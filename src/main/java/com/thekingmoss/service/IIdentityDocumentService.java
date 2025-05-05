@@ -8,9 +8,9 @@ import com.thekingmoss.entity.User;
 import java.util.List;
 
 public interface IIdentityDocumentService {
-    List<IdentityDocument> listIdentityDocuments();
+    List<IdentityDocumentResponseDTO> listIdentityDocuments();
     IdentityDocumentResponseDTO getIdentityDocumentById(Long id);
     IdentityDocumentResponseDTO saveIdentityDocument(IdentityDocumentRequestDTO requestDTO, User user);
-    IdentityDocumentResponseDTO updateIdentityDocumentByUserId(IdentityDocumentRequestDTO requestDTO);
+    IdentityDocumentResponseDTO updateIdentityDocumentById(Long id, IdentityDocumentRequestDTO requestDTO);
     void deleteIdentityDocumentById(Long id);
 }
