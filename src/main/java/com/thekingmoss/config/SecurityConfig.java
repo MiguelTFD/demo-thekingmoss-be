@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -27,8 +28,21 @@ public class SecurityConfig {
             http.csrf(AbstractHttpConfigurer::disable);
         }
         http.authorizeHttpRequests(auth -> auth
+                .requestMatchers(HttpMethod.POST, "api/product").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "api/product/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "api/product/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "api/product/**").permitAll()
+
+                .requestMatchers(HttpMethod.POST, "api/category").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "api/category/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "api/category/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/category/**").permitAll()
+
+                .requestMatchers(HttpMethod.POST, "api/productImage").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "api/productImage/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/productImage/**").permitAll()
                 .requestMatchers("api/users/**").hasAnyRole("ADMIN", "USER")
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
         ).httpBasic(Customizer.withDefaults());
         return http.build();
     }
