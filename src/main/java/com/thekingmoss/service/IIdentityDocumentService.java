@@ -2,8 +2,6 @@ package com.thekingmoss.service;
 
 import com.thekingmoss.dto.identitydocument.IdentityDocumentRequestDTO;
 import com.thekingmoss.dto.identitydocument.IdentityDocumentResponseDTO;
-import com.thekingmoss.entity.IdentityDocument;
-import com.thekingmoss.entity.User;
 
 import java.util.List;
 

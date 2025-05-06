@@ -16,10 +16,8 @@ public class AddressResponseDTO {
     private String addressReference;
     private AddressType addressType;
     
-    //User
+    //Client
     private Long userId;
-    private String username;
-    private String password;
     private String firstName;
     private String lastName;
     private String phone;

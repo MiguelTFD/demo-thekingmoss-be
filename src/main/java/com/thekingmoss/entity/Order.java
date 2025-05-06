@@ -39,7 +39,7 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Client client;
     
     @OneToMany(mappedBy = "order")
     @Builder.Default

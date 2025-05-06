@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface IAddressRepository extends JpaRepository<Address, Long> {
-    //Lists all the registered Addresses for a especific user
-    List<Address> findAddressByUser_UserId(Long id);
+    //Lists all the registered Addresses for a especific client
+    List<Address> findAddressByClient_UserId(Long id);
 }

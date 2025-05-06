@@ -2,8 +2,8 @@ package com.thekingmoss.mapper.identitydocument;
 
 import com.thekingmoss.dto.identitydocument.IdentityDocumentRequestDTO;
 import com.thekingmoss.dto.identitydocument.IdentityDocumentResponseDTO;
+import com.thekingmoss.entity.Client;
 import com.thekingmoss.entity.IdentityDocument;
-import com.thekingmoss.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,23 +13,21 @@ public class IdentityDocumentMapper {
                 .identityDocumentId(identityDocument.getIdentityDocumentId())
                 .identityDocumentNumber(identityDocument.getIdentityDocumentNumber())
                 .identityDocumentType(identityDocument.getIdentityDocumentType())
-                .userId(identityDocument.getUser().getUserId())
-                .username(identityDocument.getUser().getUsername())
-                .password(identityDocument.getUser().getPassword())
-                .firstName(identityDocument.getUser().getFirstName())
-                .lastName(identityDocument.getUser().getLastName())
-                .phone(identityDocument.getUser().getPhone())
-                .email(identityDocument.getUser().getEmail())
-                .roleId(identityDocument.getUser().getRole().getRoleId())
-                .roleName(identityDocument.getUser().getRole().getName())
+                .userId(identityDocument.getClient().getUserId())
+                .firstName(identityDocument.getClient().getFirstName())
+                .lastName(identityDocument.getClient().getLastName())
+                .phone(identityDocument.getClient().getPhone())
+                .email(identityDocument.getClient().getEmail())
+                .roleId(identityDocument.getClient().getRole().getRoleId())
+                .roleName(identityDocument.getClient().getRole().getName())
                 .build();
     }
 
-    public IdentityDocument toEntity(IdentityDocumentRequestDTO requestDTO, User user) {
+    public IdentityDocument toEntity(IdentityDocumentRequestDTO requestDTO, Client client) {
         return IdentityDocument.builder()
                 .identityDocumentNumber(requestDTO.getIdentityDocumentNumber())
                 .identityDocumentType(requestDTO.getIdentityDocumentType())
-                .user(user)
+                .client(client)
                 .build();
     }
 }

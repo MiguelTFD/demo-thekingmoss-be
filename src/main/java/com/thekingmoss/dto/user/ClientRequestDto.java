@@ -3,11 +3,7 @@ package com.thekingmoss.dto.user;
 import lombok.Data;
 
 @Data
-public class UserRequestDto {
-
-    private String username;
-
-    private String password;
+public class ClientRequestDto {
 
     private String firstName;
 

@@ -3,7 +3,7 @@ package com.thekingmoss.mapper.address;
 import com.thekingmoss.dto.address.AddressRequestDTO;
 import com.thekingmoss.dto.address.AddressResponseDTO;
 import com.thekingmoss.entity.Address;
-import com.thekingmoss.entity.User;
+import com.thekingmoss.entity.Client;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,19 +18,17 @@ public class AddressMapper {
                 .addressLine(address.getAddressLine())
                 .addressReference(address.getAddressReference())
                 .addressType(address.getAddressType())
-                .userId(address.getUser().getUserId())
-                .username(address.getUser().getUsername())
-                .password(address.getUser().getPassword())
-                .firstName(address.getUser().getFirstName())
-                .lastName(address.getUser().getLastName())
-                .phone(address.getUser().getPhone())
-                .email(address.getUser().getEmail())
-                .roleId(address.getUser().getRole().getRoleId())
-                .roleName(address.getUser().getRole().getName())
+                .userId(address.getClient().getUserId())
+                .firstName(address.getClient().getFirstName())
+                .lastName(address.getClient().getLastName())
+                .phone(address.getClient().getPhone())
+                .email(address.getClient().getEmail())
+                .roleId(address.getClient().getRole().getRoleId())
+                .roleName(address.getClient().getRole().getName())
                 .build();
     }
 
-    public Address toEntity(AddressRequestDTO requestDTO, User user) {
+    public Address toEntity(AddressRequestDTO requestDTO, Client client) {
         return Address.builder()
                 .country(requestDTO.getCountry())
                 .state(requestDTO.getState())
@@ -39,7 +37,7 @@ public class AddressMapper {
                 .addressLine(requestDTO.getAddressLine())
                 .addressReference(requestDTO.getAddressReference())
                 .addressType(requestDTO.getAddressType())
-                .user(user)
+                .client(client)
                 .build();
     }
 }

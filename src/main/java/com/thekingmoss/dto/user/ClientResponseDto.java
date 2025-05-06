@@ -7,13 +7,9 @@ import lombok.Data;
 
 @Data
 @Builder
-public class UserResponseDto {
+public class ClientResponseDto {
 
     private Long userId;
-
-    private String username;
-
-    private String password;
 
     private String firstName;
 

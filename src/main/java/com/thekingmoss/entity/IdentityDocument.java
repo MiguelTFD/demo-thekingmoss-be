@@ -27,6 +27,6 @@ public class IdentityDocument {
 
 	@OneToOne
 	@JoinColumn(name = "user_id", nullable = false, unique = true)
-	private User user;
+	private Client client;
 
 }

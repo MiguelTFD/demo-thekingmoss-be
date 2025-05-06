@@ -5,24 +5,18 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "clients")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class Client {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private Long userId;
-
-	@Column(name = "username", nullable = false, unique = true)
-	private String username;
-
-	@Column(name = "password", nullable = false)
-	private String password;
 
 	@Column(name = "first_name", nullable = false)
 	private String firstName;
@@ -40,13 +34,12 @@ public class User {
 	@JoinColumn(name = "role_id", nullable = false)
 	private Role role;
 
-
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
 	private List<Address> addresses;
 	
-	@OneToOne(mappedBy = "user")
+	@OneToOne(mappedBy = "client")
     private IdentityDocument identityDocument;
 	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
 	private List<Order> orders;
 }

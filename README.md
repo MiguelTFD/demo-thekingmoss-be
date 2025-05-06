@@ -48,7 +48,7 @@ The commit message should start with the type of action (`fix`, `feat`, `refacto
 For example:
 
 ```bash
-git commit -m "feat: add validation in endpoint user"
+git commit -m "feat: add validation in endpoint client"
 ```
 
 After creating your commit, push your branch to the remote repository:

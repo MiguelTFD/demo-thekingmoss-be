@@ -11,10 +11,8 @@ public class IdentityDocumentResponseDTO {
     private String identityDocumentNumber;
     private IdentityDocumentType identityDocumentType;
     
-    //User
+    //Client
     private Long userId;
-    private String username;
-    private String password;
     private String firstName;
     private String lastName;
     private String phone;

@@ -3,11 +3,11 @@ package com.thekingmoss.service.impl;
 import com.thekingmoss.dto.address.AddressRequestDTO;
 import com.thekingmoss.dto.address.AddressResponseDTO;
 import com.thekingmoss.entity.Address;
-import com.thekingmoss.entity.User;
+import com.thekingmoss.entity.Client;
 import com.thekingmoss.exception.ResourceNotFoundException;
 import com.thekingmoss.mapper.address.AddressMapper;
 import com.thekingmoss.repository.IAddressRepository;
-import com.thekingmoss.repository.IUserRepository;
+import com.thekingmoss.repository.IClientRepository;
 import com.thekingmoss.service.IAddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.util.List;
 public class AddressServiceImpl implements IAddressService {
     private final IAddressRepository addressRepository;
     private final AddressMapper addressMapper;
-    private final IUserRepository userRepository;
+    private final IClientRepository userRepository;
 
     @Override
     public List<AddressResponseDTO> listAddresses() {
@@ -33,7 +33,7 @@ public class AddressServiceImpl implements IAddressService {
     @Override
     public List<AddressResponseDTO> listAddressesByUserId(Long id) {
         return addressRepository
-                .findAddressByUser_UserId(id)
+                .findAddressByClient_UserId(id)
                 .stream()
                 .map(addressMapper::toDto)
                 .toList();
@@ -48,17 +48,17 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public AddressResponseDTO saveAddress(AddressRequestDTO requestDTO) {
-        User user = userRepository.findById(requestDTO.getUserId())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found by ID : " + requestDTO.getUserId()));
-        Address address = addressMapper.toEntity(requestDTO, user);
+        Client client = userRepository.findById(requestDTO.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("Client not found by ID : " + requestDTO.getUserId()));
+        Address address = addressMapper.toEntity(requestDTO, client);
         return addressMapper.toDto(addressRepository.save(address));
     }
 
     public AddressResponseDTO updateAddressById(Long id, AddressRequestDTO requestDTO) {
         Address address = addressRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Address not found by ID : " + id));
-        User user = userRepository.findById(requestDTO.getUserId())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found by ID : " + id));
+        Client client = userRepository.findById(requestDTO.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("Client not found by ID : " + id));
 
         address.setCountry(requestDTO.getCountry());
         address.setState(requestDTO.getState());
@@ -67,7 +67,7 @@ public class AddressServiceImpl implements IAddressService {
         address.setAddressLine(requestDTO.getAddressLine());
         address.setAddressReference(requestDTO.getAddressReference());
         address.setAddressType(requestDTO.getAddressType());
-        address.setUser(user);
+        address.setClient(client);
 
         return addressMapper.toDto(addressRepository.save(address));
     }

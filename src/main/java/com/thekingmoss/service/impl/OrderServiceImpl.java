@@ -11,7 +11,7 @@ import com.thekingmoss.mapper.orderDetail.OrderDetailMapper;
 import com.thekingmoss.repository.IOrderDetailRepository;
 import com.thekingmoss.repository.IOrderRepository;
 import com.thekingmoss.repository.IProductRepository;
-import com.thekingmoss.repository.IUserRepository;
+import com.thekingmoss.repository.IClientRepository;
 import com.thekingmoss.service.IOrderService;
 
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements IOrderService {
 
     private final IOrderRepository orderRepository;
-    private final IUserRepository userRepository;
+    private final IClientRepository userRepository;
     private final IProductRepository productRepository;
     private final IOrderDetailRepository orderDetailRepository;
     private final OrderMapper orderMapper;
@@ -35,9 +35,9 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     @Transactional
     public OrderResponseDto createOrder(OrderRequestDto dto) {
-        User user = userRepository.findById(dto.getUserId())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        Order order = orderMapper.toEntity(dto, user);
+        Client client = userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
+        Order order = orderMapper.toEntity(dto, client);
         return orderMapper.toDto(orderRepository.save(order));
     }
 
@@ -60,14 +60,14 @@ public class OrderServiceImpl implements IOrderService {
     public OrderResponseDto updateOrder(Long id, OrderRequestDto dto) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
-        User user = userRepository.findById(dto.getUserId())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        Client client = userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
         order.setOrderDate(dto.getOrderDate());
         order.setDeliveryType(dto.getDeliveryType());
         order.setOrderInfo(dto.getOrderInfo());
         order.setDeliveryInstructions(dto.getDeliveryInstructions());
         order.setOrderStatus(dto.getOrderStatus());
-        order.setUser(user);
+        order.setClient(client);
         return orderMapper.toDto(orderRepository.save(order));
     }
 

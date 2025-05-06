@@ -5,7 +5,7 @@ import com.thekingmoss.dto.order.OrderResponseDto;
 import com.thekingmoss.dto.orderDetail.OrderDetailResponseDto;
 import com.thekingmoss.entity.Order;
 import com.thekingmoss.entity.OrderDetail;
-import com.thekingmoss.entity.User;
+import com.thekingmoss.entity.Client;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,14 +16,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderMapper {
 
-    public Order toEntity(OrderRequestDto dto, User user) {
+    public Order toEntity(OrderRequestDto dto, Client client) {
         return Order.builder()
                 .orderDate(dto.getOrderDate())
                 .deliveryType(dto.getDeliveryType())
                 .orderInfo(dto.getOrderInfo())
                 .deliveryInstructions(dto.getDeliveryInstructions())
                 .orderStatus(dto.getOrderStatus())
-                .user(user)
+                .client(client)
                 .build();
     }
 
@@ -35,7 +35,7 @@ public class OrderMapper {
                 .orderInfo(order.getOrderInfo())
                 .deliveryInstructions(order.getDeliveryInstructions())
                 .orderStatus(order.getOrderStatus())
-                .userId(order.getUser().getUserId())
+                .userId(order.getClient().getUserId())
                 .details(order.getOrderDetails()
                         .stream()
                         .map(this::toDetailDto)
