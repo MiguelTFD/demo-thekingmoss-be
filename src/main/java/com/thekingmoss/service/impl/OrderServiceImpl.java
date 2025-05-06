@@ -4,20 +4,20 @@ import com.thekingmoss.dto.order.OrderRequestDto;
 import com.thekingmoss.dto.order.OrderResponseDto;
 import com.thekingmoss.dto.orderDetail.OrderDetailRequestDto;
 import com.thekingmoss.dto.orderDetail.OrderDetailResponseDto;
-import com.thekingmoss.entity.Order;
-import com.thekingmoss.entity.OrderDetail;
-import com.thekingmoss.entity.OrderDetailId;
-import com.thekingmoss.entity.Product;
+import com.thekingmoss.entity.*;
+import com.thekingmoss.exception.ResourceNotFoundException;
 import com.thekingmoss.mapper.order.OrderMapper;
 import com.thekingmoss.mapper.orderDetail.OrderDetailMapper;
 import com.thekingmoss.repository.IOrderDetailRepository;
 import com.thekingmoss.repository.IOrderRepository;
 import com.thekingmoss.repository.IProductRepository;
+import com.thekingmoss.repository.IUserRepository;
 import com.thekingmoss.service.IOrderService;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,9 +25,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements IOrderService {
 
-    //TODO: remove comments when the user has been deployed
     private final IOrderRepository orderRepository;
-    //private final IUserRepository userRepo;
+    private final IUserRepository userRepository;
     private final IProductRepository productRepository;
     private final IOrderDetailRepository orderDetailRepository;
     private final OrderMapper orderMapper;
@@ -36,11 +35,10 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     @Transactional
     public OrderResponseDto createOrder(OrderRequestDto dto) {
-      // User user = userRepo.findById(dto.getUserId())
-      //         .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-      //  Order order = orderMapper.toEntity(dto, user);
-      // return orderMapper.toDto(orderRepo.save(order));
-        return null;
+        User user = userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        Order order = orderMapper.toEntity(dto, user);
+        return orderMapper.toDto(orderRepository.save(order));
     }
 
     @Override
@@ -60,18 +58,17 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     @Transactional
     public OrderResponseDto updateOrder(Long id, OrderRequestDto dto) {
-     // Order order = orderRepo.findById(id)
-     //          .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
-     // User user = userRepo.findById(dto.getUserId())
-     //          .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-     // order.setOrderDate(dto.getOrderDate());
-     // order.setDeliveryType(dto.getDeliveryType());
-     // order.setOrderInfo(dto.getOrderInfo());
-     // order.setDeliveryInstructions(dto.getDeliveryInstructions());
-     // order.setOrderStatus(dto.getOrderStatus());
-     // order.setUser(user);
-     // return orderMapper.toDto(orderRepo.save(order));
-        return null;
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+        User user = userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        order.setOrderDate(dto.getOrderDate());
+        order.setDeliveryType(dto.getDeliveryType());
+        order.setOrderInfo(dto.getOrderInfo());
+        order.setDeliveryInstructions(dto.getDeliveryInstructions());
+        order.setOrderStatus(dto.getOrderStatus());
+        order.setUser(user);
+        return orderMapper.toDto(orderRepository.save(order));
     }
 
     @Override
@@ -96,7 +93,8 @@ public class OrderServiceImpl implements IOrderService {
     @Transactional
     public void removeOrderDetail(Long orderId, Long productId) {
         OrderDetailId orderDetailId = new OrderDetailId(orderId, productId);
-        if (!orderDetailRepository.existsById(orderDetailId)) throw new RuntimeException("OrderDetail not found by ID : " + orderDetailId);
+        if (!orderDetailRepository.existsById(orderDetailId))
+            throw new RuntimeException("OrderDetail not found by ID : " + orderDetailId);
         orderDetailRepository.deleteById(orderDetailId);
     }
 }
