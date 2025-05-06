@@ -3,6 +3,7 @@ package com.thekingmoss.service.impl;
 import com.thekingmoss.dto.identitydocument.IdentityDocumentRequestDTO;
 import com.thekingmoss.dto.identitydocument.IdentityDocumentResponseDTO;
 import com.thekingmoss.entity.User;
+import com.thekingmoss.exception.ResourceNotFoundException;
 import com.thekingmoss.mapper.identitydocument.IdentityDocumentMapper;
 import com.thekingmoss.repository.IIdentityDocumentRepository;
 import com.thekingmoss.service.IIdentityDocumentService;
@@ -28,7 +29,7 @@ public class IdentityDocumentServiceImpl implements IIdentityDocumentService {
     @Override
     public IdentityDocumentResponseDTO getIdentityDocumentById(Long id) {
         return identityDocumentMapper.toDto(identityDocumentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Identity document not found by ID : " + id)));
+                .orElseThrow(() -> new ResourceNotFoundException("Identity document not found by ID : " + id)));
     }
 
     //TODO: Complete when User Class is ready
@@ -46,7 +47,7 @@ public class IdentityDocumentServiceImpl implements IIdentityDocumentService {
     @Override
     public void deleteIdentityDocumentById(Long id) {
         if(!identityDocumentRepository.existsById(id)) 
-            throw new RuntimeException("Identity document not found by ID : " + id);
+            throw new ResourceNotFoundException("Identity document not found by ID : " + id);
         identityDocumentRepository.deleteById(id);
     }
 }

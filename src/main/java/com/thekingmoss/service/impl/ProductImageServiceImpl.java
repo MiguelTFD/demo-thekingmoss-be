@@ -5,6 +5,7 @@ import com.thekingmoss.dto.productImage.ProductImageRequestDto;
 import com.thekingmoss.dto.productImage.ProductImageResponseDto;
 import com.thekingmoss.entity.Product;
 import com.thekingmoss.entity.ProductImage;
+import com.thekingmoss.exception.ResourceNotFoundException;
 import com.thekingmoss.mapper.product.ProductMapper;
 import com.thekingmoss.mapper.productImage.ProductImageMapper;
 import com.thekingmoss.repository.IProductImageRepository;
@@ -45,14 +46,14 @@ public class ProductImageServiceImpl implements IProductImageService {
     public ProductImageResponseDto getProductImageById(Long id) {
         return productImageRepository.findById(id)
                 .map(productImageMapper::toDto)
-                .orElseThrow(() -> new RuntimeException("ProductImage not found with ID:" + id));
+                .orElseThrow(() -> new ResourceNotFoundException("ProductImage not found with ID:" + id));
     }
 
 
     @Override
     public void deleteById(Long id) {
         if (!productImageRepository.existsById(id)){
-            throw new RuntimeException("ProductImage not found with ID: " + id);
+            throw new ResourceNotFoundException("ProductImage not found with ID: " + id);
         }
         productImageRepository.deleteById(id);
 
