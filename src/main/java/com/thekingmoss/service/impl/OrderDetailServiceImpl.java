@@ -32,7 +32,7 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
         orderRepository.findById(orderId)
                 .orElseThrow(() -> new EntityNotFoundException("Order not found: " + orderId));
 
-        return orderDetailRepository.findAllByOrderId(orderId).stream()
+        return orderDetailRepository.findAllByOrder_OrderId(orderId).stream()
                 .map(orderDetailMapper::toDto)
                 .collect(Collectors.toList());
     }
