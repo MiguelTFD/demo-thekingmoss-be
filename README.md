@@ -51,6 +51,10 @@ For example:
 git commit -m "feat: add validation in endpoint user"
 ```
 
+```bash
+git commit -m "fix(CarouselBox): increase the padding on the left corner"
+```
+
 After creating your commit, push your branch to the remote repository:
 
 ```bash
